@@ -26,10 +26,10 @@ public class CarsController {
 
     @GetMapping("/cars")
     public String showCars(@RequestParam(required = false) Integer count, Model model) {
-        try {
-            model.addAttribute("cars", carService.getCars(count));
-        } catch (NullPointerException e) {
+        if (count == null) {
             model.addAttribute("cars", carService.getCars(5));
+        } else {
+            model.addAttribute("cars", carService.getCars(count));
         }
         return "cars";
     }
